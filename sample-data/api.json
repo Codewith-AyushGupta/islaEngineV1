@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /v1/export",
+  "rawPath": "/v1/export",
+  "rawQueryString": "",
+  "headers": {
+    "content-type": "application/json",
+    "x-authorization-id":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRJZCI6InRlc3QtdGVuYW50IiwidXNlcklkIjoiMTIzNDU2In0.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
+    "x-tenant-id":"1234"
+  },
+  "requestContext": {
+    "http": {
+      "method": "POST",
+      "path": "/v1/export",
+      "sourceIp": "127.0.0.1"
+    }
+  },
+  "body": "{\"queryName\":\"test\",\"variables\":{\"testVariables\":124}}",
+  "isBase64Encoded": false
+}

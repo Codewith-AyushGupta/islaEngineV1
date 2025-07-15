@@ -1,0 +1,95 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: nubystech
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: islaEngineV1
+
+provider:
+  name: aws
+  runtime: python3.12
+  architecture: arm64
+  region: ${self:custom.resolvedRegion}
+  environment:
+    ISLA_ENGINE_QUEUE: ${self:custom.resolvedIslaEngineQueue}
+    STORE_HERO_BUCKET_NAME_ONLY: ${self:custom.resolvedBucketNameOnly}
+    STORE_HERO_S3_BUCKET_ROOT: ${self:custom.resolvedS3bucketRoot}
+    REGION: ${self:custom.resolvedRegion}
+  ecr:
+    images:
+      islaEngineContainer:
+        path: ./
+
+custom:
+  stage: ${opt:stage, 'dev'}
+  region:
+    prod: eu-west-1
+    dev: ap-south-1
+    poc: ap-south-1
+  resolvedRegion: ${self:custom.region.${self:custom.stage}, self:custom.region.dev}
+
+  bucketNameOnly:
+    prod: storehero-prod-970547349107
+    dev: athena-play-ground-ap-south-1
+    poc: athena-play-ground-ap-south-1
+
+  s3bucketRoot:
+    prod: s3://storehero-prod-970547349107
+    dev: LOCAL
+    poc: s3://athena-play-ground-ap-south-1
+
+  islaEngineQueue:
+    prod: NONE
+    dev:  NONE
+    poc:  NONE
+
+  resolvedBucketNameOnly: ${self:custom.bucketNameOnly.${self:custom.stage}, self:custom.bucketNameOnly.dev}
+  resolvedS3bucketRoot: ${self:custom.s3bucketRoot.${self:custom.stage}, self:custom.s3bucketRoot.dev}
+  resolvedIslaEngineQueue: ${self:custom.islaEngineQueue.${self:custom.stage}, self:custom.islaEngineQueue.dev}
+
+functions:
+  v1apiIslaEngine:
+    image:
+      name: islaEngineContainer
+      command: ["lambda.apiIslaEngine.handler"]
+    timeout: 900
+    memorySize: 3500
+    events:
+      - http:
+          path: /
+          method: any
+  v1asyncIslaEngine:
+    image:
+      name: islaEngineContainer
+      command: ["lambda.asyncIslaEngine.handler"]
+    timeout: 900
+    memorySize: 3500
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - v1islaEngine
+              - Arn
+
+  v1apiIslaEngineLocalExecutor:
+    handler: lambda.apiIslaEngine.handler
+
+resources:
+  Resources:
+    v1islaEngine:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: "islaEngine-${self:custom.stage}.fifo"
+        FifoQueue: true
+        VisibilityTimeout: 900
+        ContentBasedDeduplication: false
+        DelaySeconds: 0
+        MessageRetentionPeriod: 1209600
+
+    #   VecklerTenants:
+    #   Type: "AWS::S3::Bucket"
+    #   Properties:
+    #     BucketName: "veckler-tenants-${self:provider.stage}"
+
+    # Storehero:
+    #   Type: "AWS::S3::Bucket"
+    #   Properties:
+    #     BucketName: "storehero-${self:provider.stage}"

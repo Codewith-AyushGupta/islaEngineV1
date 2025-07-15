@@ -1,0 +1,29 @@
+{
+  "Records": [
+    {
+      "messageId": "d3e8f2d5-b2c4-4b65-b4e1-121e5e01c6f0",
+      "receiptHandle": "AQEB1234...example==",
+      "body": "{\"tenantId\":\"abc123\", \"query\": \"SELECT * FROM read_csv('E:/POCS/actual Production One/New folder/DuckDBQueryEngine/sample-data/test.csv')\"}",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1623207600000",
+        "SenderId": "AIDAIO2F4VEXAMPLE",
+        "ApproximateFirstReceiveTimestamp": "1623207601000"
+      },
+      "messageAttributes": {
+        "Author": {
+          "stringValue": "Ayush",
+          "dataType": "String"
+        },
+        "Priority": {
+          "stringValue": "High",
+          "dataType": "String"
+        }
+      },
+      "md5OfBody": "098f6bcd4621d373cade4e832627b4f6",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:ap-south-1:123456789012:my-queue",
+      "awsRegion": "ap-south-1"
+    }
+  ]
+}
