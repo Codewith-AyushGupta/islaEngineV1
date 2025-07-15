@@ -77,7 +77,7 @@ resources:
     v1islaEngine:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: "islaEngine-${self:custom.stage}.fifo"
+        QueueName: "V1islaEngine-${self:custom.stage}.fifo"
         FifoQueue: true
         VisibilityTimeout: 900
         ContentBasedDeduplication: false
