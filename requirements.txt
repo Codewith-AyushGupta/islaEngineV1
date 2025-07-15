@@ -1,0 +1,7 @@
+boto3
+duckdb
+pandas
+numpy
+fastapi==0.110.1
+mangum==0.17.0
+uvicorn[standard]==0.30.1
