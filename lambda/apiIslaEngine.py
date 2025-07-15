@@ -14,7 +14,7 @@ app = FastAPI()
 
 @app.post("/v1/{folderPath}")
 async def queryByName(request: Request, folderPath: str):
-    
+    print('called queryByName',folderPath)
     try:
         islaEngineUtilityInstance = islaEngineUtility()
         print('start:', json.dumps(islaEngineUtilityInstance.status_log))
