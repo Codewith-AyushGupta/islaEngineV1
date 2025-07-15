@@ -38,8 +38,8 @@ custom:
 
   islaEngineQueue:
     prod: NONE
-    dev:  NONE
-    poc:  NONE
+    dev:  https://sqs.ap-south-1.amazonaws.com/970547349107/V1islaEngine-poc.fifo
+    poc:  https://sqs.ap-south-1.amazonaws.com/970547349107/V1islaEngine-poc.fifo
 
   resolvedBucketNameOnly: ${self:custom.bucketNameOnly.${self:custom.stage}, self:custom.bucketNameOnly.dev}
   resolvedS3bucketRoot: ${self:custom.s3bucketRoot.${self:custom.stage}, self:custom.s3bucketRoot.dev}
