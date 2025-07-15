@@ -54,7 +54,7 @@ functions:
     memorySize: 3500
     events:
       - http:
-          path: /
+          path: /{proxy+}
           method: any
   v1asyncIslaEngine:
     image:

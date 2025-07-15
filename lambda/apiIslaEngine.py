@@ -86,7 +86,17 @@ async def queryByName(request: Request, folderPath: str):
     #     status_code=200,
     #     headers=headers
     # )
-    
+
+
+@app.post("/{folderPath}")
+async def proxyVCalling(request: Request, folderPath: str):
+    body = {
+        "message": f"Query executed successfully for folder: {folderPath}",
+    }
+
+    response = {"statusCode": 200, "body": json.dumps(body)}
+
+    return response    
 # @app.post("/v1/{folderPath}/generate-file-url")
 # async def generateFileURl(request: Request, folderPath: str):
 #     try:
