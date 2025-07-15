@@ -71,6 +71,12 @@ functions:
 
   v1apiIslaEngineLocalExecutor:
     handler: lambda.apiIslaEngine.handler
+  v1temp:
+    handler: handler.hello
+    events:
+      - http:
+          path: /test
+          method: any
 
 resources:
   Resources:
